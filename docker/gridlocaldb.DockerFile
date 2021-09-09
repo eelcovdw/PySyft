@@ -20,6 +20,7 @@ FROM openmined/syft:$VERSION
 ARG APP
 ARG APP_ENV=production
 ENV APP_ENV=$APP_ENV
+ENV DATABASE_URL=sqlite:///nodedatabase.db
 ENV PORT=5000
 
 RUN --mount=type=cache,target=/root/.cache python3 -m pip install poetry
@@ -32,4 +33,4 @@ RUN --mount=type=cache,target=/root/.cache pip install -r /app/requirements.txt
 RUN pip install psycopg2-binary
 
 # run the app
-CMD ["bash", "-c", "cd /app && ./run.sh" "--start_local_db"]
+CMD ["bash", "-c", "cd /app && ./run.sh", "--start_local_db"]
