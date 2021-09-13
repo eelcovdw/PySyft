@@ -33,4 +33,4 @@ RUN --mount=type=cache,target=/root/.cache pip install -r /app/requirements.txt
 RUN pip install psycopg2-binary
 
 # run the app
-CMD ["bash", "-c", "cd /app && ./run.sh", "--start_local_db"]
+CMD ["bash", "-c", "cd /app && ./run.sh"]

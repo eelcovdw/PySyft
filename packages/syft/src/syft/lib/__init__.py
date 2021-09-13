@@ -27,6 +27,7 @@ from ..lib.python import create_python_ast
 from ..lib.remote_dataloader import create_remote_dataloader_ast
 from ..lib.torch import create_torch_ast
 from ..lib.torchvision import create_torchvision_ast
+from ..lib.transformers import create_ast as create_transformers_ast
 from ..logger import critical
 from ..logger import traceback_and_raise
 from ..logger import warning
@@ -229,6 +230,7 @@ def create_lib_ast(client: Optional[Any] = None) -> Globals:
     # numpy_ast = create_numpy_ast()
     plan_ast = create_plan_ast(client=client)
     remote_dataloader_ast = create_remote_dataloader_ast(client=client)
+    transformers_ast = create_transformers_ast(client=client)
 
     lib_ast = Globals(client=client)
     lib_ast.add_attr(attr_name="syft", attr=python_ast.attrs["syft"])
@@ -238,6 +240,7 @@ def create_lib_ast(client: Optional[Any] = None) -> Globals:
     lib_ast.syft.core.add_attr(
         "remote_dataloader", remote_dataloader_ast.syft.core.remote_dataloader
     )
+    lib_ast.add_attr(attr_name="transformers", attr=transformers_ast.attrs["transformers"])
 
     # let the misc creation be always the last, as it needs the full ast solved
     # to properly generated unions
@@ -265,7 +268,6 @@ lib_ast = create_lib_ast(None)
 @wrapt.when_imported("xgboost")
 @wrapt.when_imported("zksk")
 @wrapt.when_imported("pytorch_lightning")
-@wrapt.when_imported("transformers")
 def post_import_hook_third_party(module: TypeAny) -> None:
     """
     Note: This needs to be after `lib_ast` because code above uses lib-ast
