@@ -31,7 +31,10 @@ def create_initial_setup(
     msg: CreateInitialSetUpMessage, node: AbstractNode, verify_key: VerifyKey
 ) -> CreateInitialSetUpResponse:
     # Should not run if Domain has an owner
+    print("AAAA")
     if len(node.users):
+        print(node.users.first())
+        # print(node.users[0])
         raise OwnerAlreadyExistsError
 
     _email = msg.content.get("email", None)

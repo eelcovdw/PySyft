@@ -22,7 +22,7 @@ def initial_setup(current_user):
     content = request.get_json()
     if not content:
         content = {}
-
+    
     status_code, response_msg = error_handler(
         route_logic, 200, CreateInitialSetUpMessage, current_user, content
     )

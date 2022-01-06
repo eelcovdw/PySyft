@@ -47,7 +47,7 @@ from syft.core.node.device.client import DeviceClient
 from syft.core.node.domain.domain import Domain
 from syft.grid.connections.http_connection import HTTPConnection
 import sympc
-import tenseal as ts
+# import tenseal as ts
 
 # grid relative
 from ..database import db

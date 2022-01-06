@@ -105,7 +105,8 @@ def create_domain_app(app, args, testing=False):
     test_config = None
 
     if args.start_local_db:
-        test_config = {"SQLALCHEMY_DATABASE_URI": "sqlite:///nodedatabase.db"}
+        print("USING IN MEMORY DB")
+        test_config = {"SQLALCHEMY_DATABASE_URI": "sqlite:///"}
 
     # Bind websocket in Flask app instance
     sockets = Sockets(app)
@@ -139,6 +140,7 @@ def create_domain_app(app, args, testing=False):
     node = GridDomain(name=args.name)
 
     # Set SQLAlchemy configs
+    print(test_config)
     set_database_config(app, test_config=test_config)
     app.app_context().push()
     db.create_all()
